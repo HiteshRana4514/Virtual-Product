@@ -407,12 +407,16 @@ const ThreeScene = ({ modelScale, onSceneReady }) => {
   return (
     <div ref={mountRef} className={styles.sceneContainer}>
       {isLoading && <LoadingSpinner />}
-      <button className={styles.resetViewButton} onClick={resetView} title="Reset View">
-        <TbRotate360 size={24} />
-      </button>
-      <button className={styles.downloadButton} onClick={handleDownload} title="Download">
-        <TbDownload size={24} />
-      </button>
+      {!isLoading && (
+        <>
+          <button className={styles.resetViewButton} onClick={resetView} title="Reset View">
+            <TbRotate360 />
+          </button>
+          <button className={styles.downloadButton} onClick={handleDownload} title="Download Image">
+            <TbDownload />
+          </button>
+        </>
+      )}
     </div>
   );
 };
