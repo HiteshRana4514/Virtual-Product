@@ -6,6 +6,8 @@ import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader';
 import { TbRotate360, TbDownload } from 'react-icons/tb';
 import LoadingSpinner from './LoadingSpinner';
 import styles from './ThreeScene.module.css';
+import chairMtl from '../assets/chair-mtl.mtl?url';
+import chairObj from '../assets/chair-obj.obj?url';
 
 const ThreeScene = ({ modelScale, onSceneReady }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -240,31 +242,17 @@ const ThreeScene = ({ modelScale, onSceneReady }) => {
     fillLight.position.set(-5, 3, -5);
     scene.add(fillLight);
 
-    // Create loading manager
-    const loadingManager = new THREE.LoadingManager();
-    loadingManager.onProgress = (url, itemsLoaded, itemsTotal) => {
-      console.log(`Loading file: ${url}. Loaded ${itemsLoaded}/${itemsTotal} files.`);
-    };
-    loadingManager.onError = (url) => {
-      console.error('Error loading', url);
-    };
-
-    // Load 3D Model
-    const mtlLoader = new MTLLoader(loadingManager);
-    console.log('Loading MTL file...');
-    
+    // Load model with materials
+    const mtlLoader = new MTLLoader();
     mtlLoader.load(
-      '/chair-mtl.mtl',
+      chairMtl,
       (materials) => {
         materials.preload();
-        console.log('MTL loaded successfully', materials);
-        
-        const objLoader = new OBJLoader(loadingManager);
+
+        const objLoader = new OBJLoader();
         objLoader.setMaterials(materials);
-        
-        console.log('Loading OBJ file...');
         objLoader.load(
-          '/chair-obj.obj',
+          chairObj,
           (object) => {
             console.log('OBJ loaded successfully', object);
             
