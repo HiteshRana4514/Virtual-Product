@@ -218,6 +218,9 @@ function App() {
                 <div className="texture-grid">
                   {cushionTextures.map((texture, index) => (
                     <div key={`texture-${index}`} className="texture-box-container">
+                      <div className="tooltip">
+                        {texture.label} - Click to apply texture
+                      </div>
                       <div
                         className="texture-box"
                         style={{
@@ -231,7 +234,6 @@ function App() {
                           margin: '4px'
                         }}
                         onClick={() => handleCushionTextureChange({ type: 'texture', image: texture.image })}
-                        title={texture.label}
                       />
                       <span className="texture-label">{texture.label}</span>
                     </div>
@@ -243,6 +245,9 @@ function App() {
                 <div className="texture-grid">
                   {cushionColors.map((texture, index) => (
                     <div key={`color-${index}`} className="color-box-container">
+                      <div className="tooltip">
+                        {texture.label} - Click to apply color
+                      </div>
                       <div
                         className="color-box"
                         style={{
@@ -255,7 +260,6 @@ function App() {
                           margin: '4px'
                         }}
                         onClick={() => handleCushionTextureChange({ type: 'color', color: texture.color })}
-                        title={texture.label}
                       />
                       <span className="color-label">{texture.label}</span>
                     </div>
@@ -267,6 +271,9 @@ function App() {
                 <div className="texture-grid">
                   {frameTextures.map((texture, index) => (
                     <div key={`frame-${index}`} className="color-box-container">
+                      <div className="tooltip">
+                        {texture.label} - Click to apply frame color
+                      </div>
                       <div
                         className="color-box"
                         style={{
@@ -278,8 +285,7 @@ function App() {
                           borderRadius: '4px',
                           margin: '4px'
                         }}
-                        onClick={() => handleFrameTextureChange(texture)}
-                        title={texture.label}
+                        onClick={() => handleFrameTextureChange({ type: 'color', color: texture.color })}
                       />
                       <span className="color-label">{texture.label}</span>
                     </div>
@@ -291,6 +297,9 @@ function App() {
                 <div className="texture-grid">
                   {fullModelTextures.map((texture, index) => (
                     <div key={`model-${index}`} className="color-box-container">
+                      <div className="tooltip">
+                        {texture.label} - Click to apply to entire model
+                      </div>
                       <div
                         className="color-box"
                         style={{
@@ -302,8 +311,7 @@ function App() {
                           borderRadius: '4px',
                           margin: '4px'
                         }}
-                        onClick={() => handleFullModelTextureChange(texture)}
-                        title={texture.label}
+                        onClick={() => handleFullModelTextureChange({ type: 'color', color: texture.color })}
                       />
                       <span className="color-label">{texture.label}</span>
                     </div>
