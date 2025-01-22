@@ -1,0 +1,100 @@
+.sceneContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  padding: 0;
+}
+
+.sceneContainer canvas {
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+  display: block;
+  cursor: grab;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sceneContainer canvas.grabbing {
+  cursor: grabbing !important;
+}
+
+.resetViewButton {
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 25px);
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.downloadButton {
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% + 25px);
+  transform: translateX(-50%);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.resetViewButton:hover,
+.downloadButton:hover {
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateX(-50%) translateY(-1px);
+}
+
+.resetViewButton:active,
+.downloadButton:active {
+  transform: translateX(-50%) translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.resetViewButton svg {
+  width: 24px;
+  height: 24px;
+  color: #333;
+  transition: transform 0.2s ease;
+}
+
+.resetViewButton:hover svg {
+  transform: rotate(-180deg);
+}
+
+@media screen and (max-width: 768px) {
+  .sceneContainer {
+    height: 100%;
+  }
+
+  .resetViewButton {
+    width: 48px;
+    height: 48px;
+  }
+  .downloadButton {
+    width: 48px;
+    height: 48px;
+  }
+}
