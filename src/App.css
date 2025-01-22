@@ -372,6 +372,48 @@ body {
   background-color: #e5e7eb;
 }
 
+.texture-box-container,
+.color-box-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin: 4px;
+}
+
+.texture-label,
+.color-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+  max-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.texture-box,
+.color-box {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.texture-box:hover,
+.color-box:hover {
+  transform: scale(1.05);
+  border-color: #999;
+}
+
+.texture-box.selected,
+.color-box.selected {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
 /* Responsive Design */
 @media screen and (max-width: 1200px) {
   :root {

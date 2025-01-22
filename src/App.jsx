@@ -42,46 +42,44 @@ function App() {
     }
   };
 
+  // Cushion textures data
   const cushionTextures = [
-    { type: 'texture', image: texture1, label: 'Base Fabric 1' },
-    { type: 'texture', image: texture2, label: 'Base Fabric 2' },
-    { type: 'texture', image: texture3, label: 'Base Fabric 3' },
-    { type: 'texture', image: texture4, label: 'Base Fabric 4' },
-    { type: 'texture', image: texture5, label: 'Base Fabric 5' },
-    { type: 'texture', image: texture6, label: 'Base Fabric 6' },
+    { image: texture1, label: 'Velvet Red' },
+    { image: texture2, label: 'Linen White' },
+    { image: texture3, label: 'Cotton Blue' },
+    { image: texture4, label: 'Leather Brown' },
+    { image: texture5, label: 'Suede Gray' },
+    { image: texture6, label: 'Wool Beige' }
   ];
 
+  // Cushion colors data
   const cushionColors = [
-    { type: 'color', color: '#FF0000', label: 'Red' },
-    { type: 'color', color: '#00FF00', label: 'Green' },
-    { type: 'color', color: '#0000FF', label: 'Blue' },
-    { type: 'color', color: '#FFFF00', label: 'Yellow' },
-    { type: 'color', color: '#FF00FF', label: 'Pink' },
-    { type: 'color', color: '#00FFFF', label: 'Cyan' },
-    { type: 'color', color: '#FFFFFF', label: 'White' },
-    { type: 'color', color: '#000000', label: 'Black' },
+    { color: '#FF5733', label: 'Coral Red' },
+    { color: '#33FF57', label: 'Mint Green' },
+    { color: '#3357FF', label: 'Royal Blue' },
+    { color: '#F3FF33', label: 'Sunny Yellow' },
+    { color: '#FF33F3', label: 'Bright Pink' },
+    { color: '#33FFF3', label: 'Aqua Blue' }
   ];
 
+  // Frame colors data
   const frameTextures = [
-    { color: '#808080', label: 'Gray' },
-    { color: '#A0522D', label: 'Brown' },
-    { color: '#CD853F', label: 'Light Brown' },
-    { color: '#8B4513', label: 'Dark Brown' },
-    { color: '#D2691E', label: 'Chocolate' },
-    { color: '#F4A460', label: 'Sandy Brown' },
-    { color: '#000000', label: 'Black' },
-    { color: '#FFFFFF', label: 'White' },
+    { color: '#8B4513', label: 'Walnut' },
+    { color: '#D2691E', label: 'Oak' },
+    { color: '#A0522D', label: 'Mahogany' },
+    { color: '#DEB887', label: 'Pine' },
+    { color: '#CD853F', label: 'Cedar' },
+    { color: '#B8860B', label: 'Teak' }
   ];
 
+  // Full model colors data
   const fullModelTextures = [
-    { color: '#808080', label: 'Gray' },
-    { color: '#A0522D', label: 'Brown' },
-    { color: '#CD853F', label: 'Light Brown' },
-    { color: '#8B4513', label: 'Dark Brown' },
-    { color: '#D2691E', label: 'Chocolate' },
-    { color: '#F4A460', label: 'Sandy Brown' },
-    { color: '#000000', label: 'Black' },
-    { color: '#FFFFFF', label: 'White' },
+    { color: '#2C3E50', label: 'Navy Blue' },
+    { color: '#E74C3C', label: 'Ruby Red' },
+    { color: '#27AE60', label: 'Forest Green' },
+    { color: '#F1C40F', label: 'Golden' },
+    { color: '#8E44AD', label: 'Royal Purple' },
+    { color: '#D35400', label: 'Burnt Orange' }
   ];
 
   const handleCushionTextureChange = useCallback((texture) => {
@@ -219,22 +217,24 @@ function App() {
                 <h3>Base Fabric</h3>
                 <div className="texture-grid">
                   {cushionTextures.map((texture, index) => (
-                    <div
-                      key={`texture-${index}`}
-                      className="texture-item"
-                      onClick={() => handleCushionTextureChange(texture)}
-                      style={{
-                        backgroundImage: `url(${texture.image})`,
-                        backgroundSize: 'cover',
-                        width: '50px',
-                        height: '50px',
-                        cursor: 'pointer',
-                        border: '2px solid #ccc',
-                        borderRadius: '4px',
-                        margin: '4px'
-                      }}
-                      title={texture.label}
-                    />
+                    <div key={`texture-${index}`} className="texture-box-container">
+                      <div
+                        className="texture-box"
+                        style={{
+                          backgroundImage: `url(${texture.image})`,
+                          backgroundSize: 'cover',
+                          width: '50px',
+                          height: '50px',
+                          cursor: 'pointer',
+                          border: '2px solid #ccc',
+                          borderRadius: '4px',
+                          margin: '4px'
+                        }}
+                        onClick={() => handleCushionTextureChange({ type: 'texture', image: texture.image })}
+                        title={texture.label}
+                      />
+                      <span className="texture-label">{texture.label}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -242,21 +242,23 @@ function App() {
                 <h3>Cushion Colors</h3>
                 <div className="texture-grid">
                   {cushionColors.map((texture, index) => (
-                    <div
-                      key={`color-${index}`}
-                      className="color-item"
-                      onClick={() => handleCushionTextureChange(texture)}
-                      style={{
-                        backgroundColor: texture.color,
-                        width: '50px',
-                        height: '50px',
-                        cursor: 'pointer',
-                        border: '2px solid #ccc',
-                        borderRadius: '4px',
-                        margin: '4px'
-                      }}
-                      title={texture.label}
-                    />
+                    <div key={`color-${index}`} className="color-box-container">
+                      <div
+                        className="color-box"
+                        style={{
+                          backgroundColor: texture.color,
+                          width: '50px',
+                          height: '50px',
+                          cursor: 'pointer',
+                          border: '2px solid #ccc',
+                          borderRadius: '4px',
+                          margin: '4px'
+                        }}
+                        onClick={() => handleCushionTextureChange({ type: 'color', color: texture.color })}
+                        title={texture.label}
+                      />
+                      <span className="color-label">{texture.label}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -264,21 +266,23 @@ function App() {
                 <h3>Frame Colors</h3>
                 <div className="texture-grid">
                   {frameTextures.map((texture, index) => (
-                    <div
-                      key={`frame-${index}`}
-                      className="color-item"
-                      onClick={() => handleFrameTextureChange(texture)}
-                      style={{
-                        backgroundColor: texture.color,
-                        width: '50px',
-                        height: '50px',
-                        cursor: 'pointer',
-                        border: '2px solid #ccc',
-                        borderRadius: '4px',
-                        margin: '4px'
-                      }}
-                      title={texture.label}
-                    />
+                    <div key={`frame-${index}`} className="color-box-container">
+                      <div
+                        className="color-box"
+                        style={{
+                          backgroundColor: texture.color,
+                          width: '50px',
+                          height: '50px',
+                          cursor: 'pointer',
+                          border: '2px solid #ccc',
+                          borderRadius: '4px',
+                          margin: '4px'
+                        }}
+                        onClick={() => handleFrameTextureChange(texture)}
+                        title={texture.label}
+                      />
+                      <span className="color-label">{texture.label}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -286,21 +290,23 @@ function App() {
                 <h3>Full Model Colors</h3>
                 <div className="texture-grid">
                   {fullModelTextures.map((texture, index) => (
-                    <div
-                      key={`model-${index}`}
-                      className="color-item"
-                      onClick={() => handleFullModelTextureChange(texture)}
-                      style={{
-                        backgroundColor: texture.color,
-                        width: '50px',
-                        height: '50px',
-                        cursor: 'pointer',
-                        border: '2px solid #ccc',
-                        borderRadius: '4px',
-                        margin: '4px'
-                      }}
-                      title={texture.label}
-                    />
+                    <div key={`model-${index}`} className="color-box-container">
+                      <div
+                        className="color-box"
+                        style={{
+                          backgroundColor: texture.color,
+                          width: '50px',
+                          height: '50px',
+                          cursor: 'pointer',
+                          border: '2px solid #ccc',
+                          borderRadius: '4px',
+                          margin: '4px'
+                        }}
+                        onClick={() => handleFullModelTextureChange(texture)}
+                        title={texture.label}
+                      />
+                      <span className="color-label">{texture.label}</span>
+                    </div>
                   ))}
                 </div>
               </div>
