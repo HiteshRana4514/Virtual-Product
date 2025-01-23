@@ -28,46 +28,63 @@
 
 .resetViewButton {
   position: absolute;
-  top: 20px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.2);
   border: none;
-  border-radius: 50%;
+  border-radius: 16px;
   padding: 8px;
   cursor: pointer;
+  gap: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 40px;
-  height: 40px;
+  width: 125px;
   z-index: 1000;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 .downloadButton {
   position: absolute;
-  top: 20px;
+  top: 16px;
   right: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(68, 68, 68,0.8);
   border: none;
-  border-radius: 50%;
+  border-radius: 16px;
+  color: #fff;
   padding: 8px;
   cursor: pointer;
   display: flex;
+  gap: 5px;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 40px;
-  height: 40px;
+  width: 125px;
   z-index: 1000;
+  font-size: 14px;
+  font-weight: 400;
 }
-
-.resetViewButton:hover,
-.downloadButton:hover {
+.downloadButton svg{
+  color: #fff !important;
+  width: 21px !important;
+  height: 21px !important;
+}
+.resetViewButton svg{
+  width: 21px !important;
+  height: 21px !important;
+}
+.resetViewButton:hover{
   background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+.downloadButton:hover {
+  background-color: #444;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transform: translateY(-1px);
 }
@@ -99,11 +116,14 @@
   }
 
   .resetViewButton {
-    width: 48px;
-    height: 48px;
+    width: 117px;
+    top: 16px;
+    font-size: 14px;
   }
   .downloadButton {
-    width: 48px;
-    height: 48px;
+    width: 117px;
+    top: 16px;
+    right: 5px;
+    font-size: 14px;
   }
 }

@@ -9,7 +9,7 @@ import styles from './ThreeScene.module.css';
 import chairMtl from '../assets/chair-mtl.mtl?url';
 import chairObj from '../assets/chair-obj.obj?url';
 
-const ThreeScene = ({ modelScale, onSceneReady }) => {
+const ThreeScene = ({ onSceneReady }) => {
   const [isLoading, setIsLoading] = useState(true);
   const mountRef = useRef(null);
   const sceneRef = useRef(null);
@@ -20,6 +20,7 @@ const ThreeScene = ({ modelScale, onSceneReady }) => {
   const initialCameraPosition = useRef(null);
   const backgroundScene = useRef(null);
   const backgroundCamera = useRef(null);
+  const [modelScale, setModelScale] = useState(1);
 
   const resetView = () => {
     if (cameraRef.current && controlsRef.current && initialCameraPosition.current) {
@@ -53,20 +54,46 @@ const ThreeScene = ({ modelScale, onSceneReady }) => {
   };
 
   const handleDownload = () => {
-    if (rendererRef.current) {
-      // Ensure the scene is rendered with latest state
-      rendererRef.current.render(sceneRef.current, cameraRef.current);
-      rendererRef.current.render(backgroundScene.current, backgroundCamera.current);
-      rendererRef.current.render(sceneRef.current, cameraRef.current);
-      
+    if (!rendererRef.current || !cameraRef.current || !sceneRef.current) return;
+
+    // Store original size
+    const originalWidth = rendererRef.current.domElement.width;
+    const originalHeight = rendererRef.current.domElement.height;
+
+    // Set higher resolution for download
+    const scale = 2; // Increase this for even higher resolution
+    rendererRef.current.setSize(originalWidth * scale, originalHeight * scale);
+    cameraRef.current.aspect = (originalWidth * scale) / (originalHeight * scale);
+    cameraRef.current.updateProjectionMatrix();
+
+    // Enable better rendering quality
+    rendererRef.current.setPixelRatio(window.devicePixelRatio * scale);
+    rendererRef.current.antialias = true;
+
+    // First render the background
+    rendererRef.current.autoClear = false;
+    rendererRef.current.clear();
+    rendererRef.current.render(backgroundScene.current, backgroundCamera.current);
+    
+    // Then render the scene
+    rendererRef.current.render(sceneRef.current, cameraRef.current);
+
+    try {
+      const dataUrl = rendererRef.current.domElement.toDataURL('image/jpeg', 1.0);
       const link = document.createElement('a');
       link.download = 'virtual-product.jpg';
-      // Use JPEG format with high quality (0.9)
-      link.href = rendererRef.current.domElement.toDataURL('image/jpeg', 0.9);
-      document.body.appendChild(link);
+      link.href = dataUrl;
       link.click();
-      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error downloading image:', error);
     }
+
+    // Restore original size and settings
+    rendererRef.current.setSize(originalWidth, originalHeight);
+    cameraRef.current.aspect = originalWidth / originalHeight;
+    cameraRef.current.updateProjectionMatrix();
+    rendererRef.current.setPixelRatio(window.devicePixelRatio);
+    rendererRef.current.render(sceneRef.current, cameraRef.current);
   };
 
   useEffect(() => {
@@ -411,10 +438,31 @@ const ThreeScene = ({ modelScale, onSceneReady }) => {
         <>
           <button className={styles.resetViewButton} onClick={resetView} title="Reset View">
             <TbRotate360 />
+            <span className="btn-text">Reset View</span>
           </button>
           <button className={styles.downloadButton} onClick={handleDownload} title="Download Image">
             <TbDownload />
+            <span className="btn-text">Download</span>
           </button>
+          <div className="control-group">
+                <div className="scale-control">
+                  <input
+                    type="range"
+                    className="scale-slider"
+                    min="0.5"
+                    max="2"
+                    step="0.1"
+                    value={modelScale}
+                    onChange={(e) => setModelScale(parseFloat(e.target.value))}
+                  />
+                  <div className="scale-marks">
+                    <span>50%</span>
+                    <span>100%</span>
+                    <span>200%</span>
+                  </div>
+                </div>
+              </div>
+              {/* <div className="scale-value">{(modelScale * 100).toFixed(0)}%</div> */}
         </>
       )}
     </div>

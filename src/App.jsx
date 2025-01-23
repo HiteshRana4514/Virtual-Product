@@ -12,7 +12,6 @@ import './App.css';
 
 function App() {
   const [activeTab, setActiveTab] = useState('customize');
-  const [modelScale, setModelScale] = useState(1);
   const [sceneData, setSceneData] = useState(null);
 
   const handleSceneReady = useCallback((data) => {
@@ -167,7 +166,7 @@ function App() {
         <div className="view-wrap">
           <span className="tag-360"># view 360</span>
         </div>
-        <ThreeScene modelScale={modelScale} onSceneReady={handleSceneReady} />
+        <ThreeScene onSceneReady={handleSceneReady} />
       </div>
       <div className="controls-section">
         <div className="product-header">
@@ -193,26 +192,6 @@ function App() {
         <div className="tab-content">
           {activeTab === 'customize' ? (
             <div className="customize-panel">
-              <div className="control-group">
-                <label>Model Scale</label>
-                <div className="scale-control">
-                  <input
-                    type="range"
-                    className="scale-slider"
-                    min="0.5"
-                    max="2"
-                    step="0.1"
-                    value={modelScale}
-                    onChange={(e) => setModelScale(parseFloat(e.target.value))}
-                  />
-                  <div className="scale-marks">
-                    <span>50%</span>
-                    <span>100%</span>
-                    <span>200%</span>
-                  </div>
-                  <div className="scale-value">{(modelScale * 100).toFixed(0)}%</div>
-                </div>
-              </div>
               <div className="texture-section">
                 <h3>Base Fabric</h3>
                 <div className="texture-grid">
